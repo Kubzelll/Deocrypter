@@ -1,0 +1,3 @@
+tk
+cryptography
+termcolor
