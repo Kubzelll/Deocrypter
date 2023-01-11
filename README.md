@@ -14,4 +14,4 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-Run main.py and you need to first click Create new token
+Run main.py and you need to first create token.key file and click Create new token
