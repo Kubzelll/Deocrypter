@@ -8,10 +8,13 @@ Sorry for this awful gui.
 ##### Windows:
 ```zsh
 pip install -r requirements.txt 
-@ -12,3 +14,4 @@ pip install -r requirements.txt
+```
+
+##### macOS/Linux:
 ```zsh
 pip3 install -r requirements.txt
 ```
+
 
 ## Usage
 
