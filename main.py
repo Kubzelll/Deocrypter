@@ -78,12 +78,10 @@ def encrpyt():
         with open(files, "wb") as decfile:
             decfile.write(contents_encrypted)
         print("[!]SUCCESSFULLY ENCRYPTED[!]")
-        files = ""
     
     except Exception as e:
         print(files)
         print(f"First select file to encrypt {e}" )
-        files = ""
 
 
 
@@ -101,12 +99,10 @@ def decrypt():
         with open(files, "wb") as writedecfile:
             writedecfile.write(contents_decrypt)
         print("[!]SUCCESSFULLY DECRYPTED[!]")
-        files = ""
     
     except Exception as e:
         print(files)
         print(f"First select file to decrypt {e}")
-        files = ""
 
 
 
