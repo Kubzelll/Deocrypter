@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet
 import tkinter as tk
 from tkinter import * 
 from tkinter import PhotoImage, filedialog
-from termcolor import colored
+from pystyle import Colors, Colorate
 from tkinter.messagebox import askyesno
 
 '''
@@ -16,7 +16,11 @@ $$ | \$$\\$$$$$$  |$$$$$$$  |$$$$$$$$\ \$$$$$$$\ $$ |
 \__|  \__|\______/ \_______/ \________| \_______|\__|
 '''
 
-ascii_art = r"""\
+
+
+
+
+print(Colorate.Horizontal(Colors.blue_to_cyan,r"""
 
 
 $$\   $$\          $$\                           $$\ 
@@ -26,15 +30,10 @@ $$$$$  / $$ |  $$ |$$  __$$\ \____$$  |$$  __$$\ $$ |
 $$  $$<  $$ |  $$ |$$ |  $$ |  $$$$ _/ $$$$$$$$ |$$ |
 $$ |\$$\ $$ |  $$ |$$ |  $$ | $$  _/   $$   ____|$$ |
 $$ | \$$\\$$$$$$  |$$$$$$$  |$$$$$$$$\ \$$$$$$$\ $$ |
-\__|  \__|\______/ \_______/ \________| \_______|\__|                                            
-        """
+\__|  \__|\______/ \_______/ \________| \_______|\__|       
+""",1))
 
-colored_ascii = colored(ascii_art, 'blue')
-
-
-print(colored_ascii)
-
-print(colored("PROJECT MADE BY KUBZEL", 'magenta'))
+print(Colorate.DiagonalBackwards(Colors.cyan_to_blue,"Project made by Kubzel",1))
 f = Fernet
 
 
@@ -78,10 +77,12 @@ def encrpyt():
         with open(files, "wb") as decfile:
             decfile.write(contents_encrypted)
         print("[!]SUCCESSFULLY ENCRYPTED[!]")
+        
     
     except Exception as e:
         print(files)
         print(f"First select file to encrypt {e}" )
+        
 
 
 
@@ -99,6 +100,7 @@ def decrypt():
         with open(files, "wb") as writedecfile:
             writedecfile.write(contents_decrypt)
         print("[!]SUCCESSFULLY DECRYPTED[!]")
+
     
     except Exception as e:
         print(files)
