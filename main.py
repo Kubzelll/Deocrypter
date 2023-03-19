@@ -35,11 +35,17 @@ $$ | \$$\\$$$$$$  |$$$$$$$  |$$$$$$$$\ \$$$$$$$\ $$ |
 
 print(Colorate.DiagonalBackwards(Colors.cyan_to_blue,"Project made by Kubzel",1))
 f = Fernet
+option = int(input("Choose option 1 to overwrite dec/enc file or select 2 to create a new file that will be enc/dec \n"))
 
-
+newfile = False
+if option == 2:
+    newfile = True
+try:
 #getting token to decrypt&encrypt
-with open("token.key", 'rb') as file:
-    key = file.read()
+    with open("token.key", 'rb') as file:
+        key = file.read()
+except FileNotFoundError:
+    print("No file found, create one!")
 
 
 
@@ -47,14 +53,15 @@ def create():
     try:
         token = f.generate_key()
         #open text file
-        text_file = open("token.key", "wb")
-        text_file.write(token)
-        text_file.close()
+        with open("token.key", "wb") as openhandler:
+            openhandler.write(token)
+            openhandler.close()
 
         print(token)
+        key = token
         print("Writed")
-    except:
-        print("ERROR")
+    except Exception as e:
+        print(f"ERROR {e}")
 
 
 
@@ -69,14 +76,26 @@ def select_file():
 
 
 def encrpyt():
+
     try:
-        with open(files, "rb") as encfile:
-            contents = encfile.read()
-            contents_encrypted = Fernet(key).encrypt(contents)
-        
-        with open(files, "wb") as decfile:
-            decfile.write(contents_encrypted)
-        print("[!]SUCCESSFULLY ENCRYPTED[!]")
+        if newfile == False:
+            with open(files, "rb") as encfile:
+                contents = encfile.read()
+                contents_encrypted = Fernet(key).encrypt(contents)
+            
+            with open(files, "wb") as decfile:
+                decfile.write(contents_encrypted)
+            print("[!]SUCCESSFULLY ENCRYPTED[!]")
+        else:
+            newfilename = files + '.enc'
+            with open(files, "rb") as encfile:
+                contents = encfile.read()
+                contents_encrypted = Fernet(key).encrypt(contents)
+            
+            with open(newfilename, "wb") as decfile:
+                decfile.write(contents_encrypted)
+            print("[!]SUCCESSFULLY ENCRYPTED[!]")
+
         
     
     except Exception as e:
@@ -90,22 +109,30 @@ def encrpyt():
 
 
 def decrypt():
+    if newfile == False:
+        try:
+            with open(files, "rb") as decthefile:
+                contentstodec = decthefile.read()
+                contents_decrypt = Fernet(key).decrypt(contentstodec)
+            
+            with open(files, "wb") as writedecfile:
+                writedecfile.write(contents_decrypt)
+            print("[!]SUCCESSFULLY DECRYPTED[!]")
 
-    try:
+        
+        except Exception as e:
+            print(files)
+            print(f"First select file to decrypt {e}")
+    else:
+        newfilename = files + '.dec'
 
         with open(files, "rb") as decthefile:
             contentstodec = decthefile.read()
             contents_decrypt = Fernet(key).decrypt(contentstodec)
         
-        with open(files, "wb") as writedecfile:
+        with open(newfilename, "wb") as writedecfile:
             writedecfile.write(contents_decrypt)
         print("[!]SUCCESSFULLY DECRYPTED[!]")
-
-    
-    except Exception as e:
-        print(files)
-        print(f"First select file to decrypt {e}")
-
 
 
 
