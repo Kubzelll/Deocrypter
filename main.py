@@ -48,6 +48,19 @@ except FileNotFoundError:
     print("No file found, create one!")
 
 
+def get_file_extension(file_name):
+    last_dot_index = file_name.rfind(".")
+    if last_dot_index != -1:
+        return file_name[last_dot_index:]
+    else:
+        return None
+
+def change_ext(file):
+    file = file[:-4]
+    ext = get_file_extension(file)
+    file = file[:-len(ext)]
+    file = file + ".dec" + ext
+    return file
 
 def create():
     try:
@@ -124,15 +137,20 @@ def decrypt():
             print(files)
             print(f"First select file to decrypt {e}")
     else:
-        newfilename = files + '.dec'
+        try:
+            newfilename = change_ext(files)
 
-        with open(files, "rb") as decthefile:
-            contentstodec = decthefile.read()
-            contents_decrypt = Fernet(key).decrypt(contentstodec)
-        
-        with open(newfilename, "wb") as writedecfile:
-            writedecfile.write(contents_decrypt)
-        print("[!]SUCCESSFULLY DECRYPTED[!]")
+            with open(files, "rb") as decthefile:
+                contentstodec = decthefile.read()
+                contents_decrypt = Fernet(key).decrypt(contentstodec)
+            
+            with open(newfilename, "wb") as writedecfile:
+                writedecfile.write(contents_decrypt)
+            print("[!]SUCCESSFULLY DECRYPTED[!]")
+
+        except Exception as e:
+            print(files)
+            print(f"First select file to decrypt {e}")
 
 
 
